@@ -1,0 +1,512 @@
+:root {
+    --bg-app: #050505;
+    --bg-card: #121212;
+    --bg-input: #1c1c1c;
+    --border-color: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --accent-primary: #ffffff;
+    --accent-hover: #e0e0e0;
+    --danger: #cf6679;
+    --success: #03dac6;
+    --radius-card: 16px;
+    --radius-input: 8px;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary);
+    margin-top: 0;
+}
+
+h1 {
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+}
+
+/* Card Containers */
+/* Inputs & Forms */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: var(--radius-input);
+    font-family: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+th,
+td {
+    padding: 10px 10px;
+    /* Reduced vertical and horizontal padding */
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.th-wide {
+    min-width: 150px;
+    /* Reduced wide column minimum width */
+    max-width: 300px;
+}
+
+/* Card Containers */
+.section,
+.controls {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    margin-bottom: 24px;
+    max-width: 1400px;
+    /* Increased max-width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Inline Inputs in content */
+.input-group-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-input);
+    padding: 8px 16px;
+    border-radius: var(--radius-input);
+    width: fit-content;
+    min-width: 300px;
+    /* Ensure it's wide enough */
+    border: 1px solid var(--border-color);
+}
+
+.input-group-inline input {
+    width: 100px;
+    /* Increased input width */
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-input);
+    transition: all 0.2s;
+}
+
+/* Primary Action Buttons (Update Tables, etc.) */
+.buttons-row button {
+    background-color: var(--accent-primary);
+    color: #000;
+    padding: 10px 20px;
+}
+
+.buttons-row button:hover {
+    background-color: var(--accent-hover);
+}
+
+.buttons-row button.btn-danger {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.buttons-row button.btn-danger:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+    background-color: rgba(207, 102, 121, 0.1);
+}
+
+.buttons-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Settings Layout */
+.settings-row {
+    display: flex;
+    gap: 20px;
+}
+
+.settings-col {
+    flex: 1;
+    background-color: transparent;
+}
+
+.names-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.names-inline input {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+}
+
+/* Tables */
+.table-main-container {
+    overflow-x: auto;
+    width: 100%;
+    /* Ensure table fits horizontally */
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: transparent;
+    /* Clean look */
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: normal;
+    vertical-align: bottom;
+}
+
+.section {
+    overflow-x: auto;
+}
+
+td {
+    color: var(--text-primary);
+}
+
+/* Remove last border for clean look */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Editable Cells */
+.editable {
+    background-color: transparent;
+    border: 1px solid transparent;
+    /* Invisible border by default */
+    border-radius: 4px;
+    transition: background 0.2s;
+    cursor: text;
+}
+
+.editable:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color);
+}
+
+.editable:focus {
+    background-color: var(--bg-input);
+    outline: none;
+    border-color: #555;
+}
+
+.th-wide {
+    min-width: 200px;
+}
+
+/* Table Controls (Ghost/Dashed Style) - Dark Mode Version */
+.table-controls-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.table-main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+.table-main-container table {
+    margin: 0 !important;
+}
+
+.edge-bar-container {
+    display: flex;
+    gap: 16px;
+}
+
+.horizontal-bar-container {
+    flex-direction: row;
+    width: 100%;
+}
+
+.vertical-bar-container {
+    flex-direction: column;
+    /* height set by JS */
+}
+
+.edge-bar-btn {
+    background-color: transparent;
+    border: 1px dashed #333;
+    /* Darker dashed border */
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #555;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.edge-bar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: #666;
+    color: #eee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Hide Spinners on Number Inputs */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.horizontal-bar-btn {
+    height: 48px;
+    /* Slightly taller for touch targets */
+    flex: 1;
+}
+
+.vertical-bar-btn {
+    width: 48px;
+    flex: 1;
+}
+
+/* Footnotes */
+.table-footnote {
+    color: #52525b;
+    /* Dark grey */
+    font-size: 0.8rem;
+    margin-top: 16px;
+}
+
+/* Inline Inputs in content */
+.input-group-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-input);
+    padding: 8px 12px;
+    border-radius: var(--radius-input);
+    width: fit-content;
+    border: 1px solid var(--border-color);
+}
+
+.input-group-inline label {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.input-group-inline input {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 60px;
+    color: var(--text-primary);
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Calculations Container */
+.calc-container {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-input);
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    font-family: monospace;
+}
+
+/* Formula blocks */
+.calc-formula {
+    background: var(--bg-input);
+    padding: 12px;
+    border-radius: var(--radius-input);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Highlighting specific values if needed */
+.calculated {
+    color: #03dac6;
+    font-weight: bold;
+}
+
+/* Pyramid Visualization */
+#pyramid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 40px auto;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.pyramid-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: var(--text-primary);
+    position: relative;
+    /* Removed fixed width calculation dependency from JS, but JS sets inline width. 
+       We can override or enhance. */
+    height: 48px;
+}
+
+.pyramid-level-number {
+    position: absolute;
+    left: -40px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+.pyramid-item {
+    padding: 0 10px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    /* More angular, less "toy-like" or keep rounded if preferred, user implies "blocks" */
+    color: #e5e5e5;
+    /* Light text */
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    min-width: 0;
+    /* Allow shrinking if needed */
+    flex: 1;
+    /* Stretch to fill the level container */
+    margin: 0 4px;
+    /* Spacing between blocks */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+}
+
+/* Hover effect removed per request */
+.pyramid-item:hover {
+    z-index: 10;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar styling for webkit */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .settings-row {
+        flex-direction: column;
+    }
+
+    .table-controls-wrapper {
+        flex-direction: column;
+    }
+
+    .vertical-bar-container {
+        flex-direction: row;
+        width: 100%;
+        height: auto !important;
+        /* Override JS height on mobile if needed */
+    }
+
+    .vertical-bar-btn {
+        height: 48px;
+        width: auto;
+    }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIKOR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1></h1>
+
+    <div class="controls">
+        <h3>Налаштування</h3>
+
+        <div class="settings-row">
+            <div class="settings-col">
+                <label>Експерти:</label>
+                <input type="number" id="numExperts" min="1" max="20" value="7" onchange="updateExpertNameInputs()">
+                <div id="expertNameInputs" class="names-inline"></div>
+            </div>
+
+            <div class="settings-col">
+                <label>Критерії:</label>
+                <input type="number" id="numCriteria" min="1" max="20" value="10" onchange="updateCriteriaInputs()">
+                <div id="criteriaInputs" class="names-inline"></div>
+            </div>
+
+            <div class="settings-col">
+                <label>Альтернативи:</label>
+                <input type="number" id="numAlternatives" min="1" max="20" value="8"
+                    onchange="updateAlternativesInputs()">
+                <div id="alternativesInputs" class="names-inline"></div>
+            </div>
+        </div>
+
+        <div class="buttons-row">
+            <button onclick="updateTables()">Оновити таблиці</button>
+            <button onclick="resetToDefaults()" class="btn-danger">Скинути</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Вербально-числова шкала оцінки кваліфікації експертів</h2>
+
+        <div class="table-controls-wrapper">
+            <div class="table-main-container">
+                <table id="table1"></table>
+
+                <!-- Horizontal controls for columns -->
+                <div class="edge-bar-container horizontal-bar-container">
+                    <button onclick="removeScaleColumn()" class="edge-bar-btn horizontal-bar-btn"
+                        title="Видалити стовпець">−</button>
+                    <button onclick="addScaleColumn()" class="edge-bar-btn horizontal-bar-btn"
+                        title="Додати стовпець">+</button>
+                </div>
+            </div>
+
+            <!-- Vertical controls for rows -->
+            <div class="edge-bar-container vertical-bar-container" id="scaleRowControl">
+                <button onclick="removeScaleRow()" class="edge-bar-btn vertical-bar-btn"
+                    title="Видалити рядок">−</button>
+                <button onclick="addScaleRow()" class="edge-bar-btn vertical-bar-btn" title="Додати рядок">+</button>
+            </div>
+        </div>
+
+        <p class="table-footnote"><em>Введіть значення від 1 до 9, що відповідають рівню кваліфікації експерта залежно
+                від його посади та стажу.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Оцінки впливу джерела інформації на думку експерта</h2>
+
+        <div class="table-controls-wrapper">
+            <div class="table-main-container">
+                <table id="table2"></table>
+            </div>
+
+            <!-- Vertical controls for rows in Table 1.2 -->
+            <div class="edge-bar-container vertical-bar-container" id="sourceRowControl">
+                <button onclick="removeSourceRow()" class="edge-bar-btn vertical-bar-btn"
+                    title="Видалити джерело">−</button>
+                <button onclick="addSourceRow()" class="edge-bar-btn vertical-bar-btn" title="Додати джерело">+</button>
+            </div>
+        </div>
+
+        <p class="table-footnote"><em>Вкажіть назви джерел інформації та коефіцієнти їх впливу (низький, середній,
+                високий) на думку експерта.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Показники кваліфікації експертів</h2>
+        <table id="table3"></table>
+        <p class="table-footnote"><em>Введіть показники рівня кваліфікації (φ<sub>ij</sub>). Коефіцієнт компетентності
+                (K) буде розраховано автоматично.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Анкетування щодо самооцінки експерта</h2>
+        <table id="table4"></table>
+        <p class="table-footnote"><em>Оцініть ступінь впливу кожного джерела інформації на думку конкретного експерта
+                (A<sub>n</sub>).</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Нормовані значення коефіцієнтів компетентності</h2>
+
+        <div class="input-group-inline">
+            <label>Коефіфіцієнт вагомості α<sub>ke</sub>:</label>
+            <input type="number" id="alphaKe" step="0.1" min="0" max="1" value="0.8" oninput="updateTables()">
+        </div>
+
+        <div id="coefficient-calculations" class="calc-container">
+        </div>
+
+        <table id="table5"></table>
+        <p class="table-footnote"><em>Підсумкові нормовані коефіцієнти компетентності. Сума всіх значень
+                дорівнює 1.</em></p>
+    </div>
+
+    <div id="alternatives-tables-container">
+    </div>
+
+    <div class="section">
+        <h2>Матриця рішень щодо оцінки альтернатив</h2>
+        <div class="calc-formula">
+            e<sub>i</sub><sup>agr</sup> = ∑ K<sub>n</sub> · e<sub>i</sub>
+        </div>
+        <table id="table1_8"></table>
+        <p class="table-footnote"><em>Агрегована оцінка розраховується як зважена сума оцінок експертів.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Процедура розрахунку ваги критеріїв</h2>
+        <table id="table1_10"></table>
+        <p class="table-footnote"><em>Введіть значення пріоритетності або діапазон (наприклад, 1-2). Ваги розраховуються
+                на основі пріоритетності.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>Матриця рішень з ваговими коефіцієнтами критеріїв</h2>
+        <table id="table1_11"></table>
+    </div>
+
+    <div class="section">
+        <h2>Найкращі та найгірші значення за кожним із критеріїв</h2>
+        <div class="calc-formula">
+            f<sub>j</sub><sup>*</sup> = max f<sub>ij</sub>, f<sub>j</sub><sup>-</sup> = min f<sub>ij</sub>
+        </div>
+        <table id="table1_12"></table>
+    </div>
+
+    <div class="section">
+        <h2>Значення відхилень від найкращого рішення</h2>
+        <div class="calc-formula">
+            S<sub>j</sub> = ∑ w<sub>i</sub>(f<sub>i</sub><sup>*</sup> - f<sub>ij</sub>) / (f<sub>i</sub><sup>*</sup> -
+            f<sub>i</sub><sup>-</sup>)
+        </div>
+        <div class="calc-formula">
+            R<sub>j</sub> = max [ w<sub>i</sub>(f<sub>i</sub><sup>*</sup> - f<sub>ij</sub>) / (f<sub>i</sub><sup>*</sup>
+            - f<sub>i</sub><sup>-</sup>) ]
+        </div>
+        <table id="table1_13"></table>
+    </div>
+
+    <div class="section">
+        <h2>Значення показника Q та ранжування альтернатив</h2>
+
+        <div class="input-group-inline" style="margin-bottom: 15px;">
+            <label for="vValue" style="margin-right: 10px; font-weight: bold;">Значення v (вага стратегії):</label>
+            <input type="number" id="vValue" value="0.5" step="0.1" min="0" max="1" style="width: 80px; padding: 5px;"
+                onchange="updateVValue(this.value)">
+        </div>
+
+        <div class="calc-formula">
+            Q<sub>j</sub> = v · (S<sub>j</sub> - S<sup>*</sup>)/(S<sup>-</sup> - S<sup>*</sup>) + (1 - v) ·
+            (R<sub>j</sub> - R<sup>*</sup>)/(R<sup>-</sup> - R<sup>*</sup>)
+        </div>
+        <table id="table1_14"></table>
+    </div>
+
+    <div class="section">
+        <h2>Фінальне ранжування за методом VIKOR</h2>
+        <div id="vikor-conditions" style=""></div>
+        <table id="table1_15"></table>
+
+        <h3 style="margin-top: 30px; text-align: center;">Візуалізація ранжування</h3>
+        <div id="pyramid-container"></div>
+        <div id="pyramid-legend"
+            style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; font-size: 14px; color: #a1a1aa;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div
+                    style="width: 20px; height: 20px; background-color: rgba(0, 188, 212, 0.15); border: 1px solid rgba(0, 188, 212, 0.4); border-radius: 3px;">
+                </div>
+                <span>За S<sub>j</sub></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div
+                    style="width: 20px; height: 20px; background-color: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 3px;">
+                </div>
+                <span>За R<sub>j</sub></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div
+                    style="width: 20px; height: 20px; background-color: rgba(255, 105, 180, 0.15); border: 1px solid rgba(255, 105, 180, 0.4); border-radius: 3px;">
+                </div>
+                <span>За Q</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
