@@ -1458,8 +1458,18 @@ function updateTables() {
     generateTable1_15();
     generateAlternativesTables();
     updateScaleUIControls();
+    generateTopsisTables();
 }
 
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.getElementById('tab-btn-' + tabId).classList.add('active');
+}
+
+// TOPSIS logic has been moved to topsis.js
 function resetToDefaults() {
     currentData = JSON.parse(JSON.stringify(DEFAULT_DATA));
     document.getElementById('numExperts').value = DEFAULT_DATA.numExperts;
